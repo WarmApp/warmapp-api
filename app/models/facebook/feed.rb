@@ -1,0 +1,2 @@
+class Facebook::Feed
+end
