@@ -1,0 +1,11 @@
+development:
+  app_id: YOUR_APP_ID
+  app_secret: YOUR_APP_SECRET
+
+test:
+  app_id: YOUR_APP_ID
+  app_secret: YOUR_APP_SECRET
+
+production:
+  app_id: YOUR_APP_ID
+  app_secret: YOUR_APP_SECRET
