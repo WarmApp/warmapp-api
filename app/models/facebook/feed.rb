@@ -1,3 +1,3 @@
 class Facebook::Feed
-  ActiveModel::SerializerSupport
+  include ActiveModel::SerializerSupport
 end
