@@ -1,4 +1,6 @@
 class Facebook::Event
+  ActiveModel::SerializerSupport
+
   attr_accessor :no_cache
 
   def initialize(id, fetcher = nil)
@@ -30,7 +32,7 @@ private
 
   def has_cache?
     # if Feature.active?(:redis)
-    #   Rails.cache.exist? "event_feeds_#{@id}" && 
+    #   Rails.cache.exist? "event_feeds_#{@id}" &&
     #     Rails.cache.read("event_feeds_#{@id}").present?
     # else
     #   false
