@@ -13,24 +13,27 @@
 
 ActiveRecord::Schema.define(version: 20151108233744) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "playlists", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.integer  "fb_event_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "name"
+    t.integer  "fb_event_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.integer  "playlist_id",  limit: 4
-    t.string   "caption",      limit: 255
-    t.string   "link",         limit: 255
-    t.string   "source",       limit: 255
-    t.string   "name",         limit: 255
-    t.text     "fb_message",   limit: 65535
-    t.integer  "fb_user_id",   limit: 4
-    t.string   "fb_user_name", limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "playlist_id"
+    t.string   "caption"
+    t.string   "link"
+    t.string   "source"
+    t.string   "name"
+    t.text     "fb_message"
+    t.integer  "fb_user_id"
+    t.string   "fb_user_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "tracks", ["playlist_id"], name: "index_tracks_on_playlist_id", using: :btree

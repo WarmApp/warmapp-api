@@ -1,13 +1,29 @@
 class Api::V1::BaseController < ApplicationController
-  protect_from_forgery with: :null_session
 
-  respond_to :json
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    render json: {
+      error: {
+        message: parse(e.message),
+        class: e.class,
+      }
+    }, status: 404
+  end
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ApplicationError do |e|
+    render json: {
+      error: {
+        message: parse(e.message),
+        class: e.class,
+        status: e.status
+      }
+    }, status: e.status
+  end
 
-protected
-
-  def record_not_found
-    return head status: 404
+  def parse(message)
+    begin
+      return JSON.parse(message)
+    rescue JSON::ParserError
+      return message
+    end
   end
 end
