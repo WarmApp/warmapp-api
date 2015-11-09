@@ -1,12 +1,21 @@
 class Facebook::EventRepository
   def load!(event)
     if cached?(event)
+      FetchFacebookEventJob.perform_later(event.id)
       Facebook::Event.new(cache(event))
     else
       event.load!
       cache!(event)
       event
     end
+  end
+
+  def cache!(event)
+    hash = JSON.parse(event.to_json, symbolize_names: true)
+    data = hash.delete_if {
+      |k, v| k == :fetcher || k == :graph
+    }
+    Rails.cache.write(cache_key(event), data, expires_in: 48.hours)
   end
 
 private
@@ -18,14 +27,6 @@ private
   def cached?(event)
     key = cache_key(event)
     Rails.cache.exist?(key) && Rails.cache.read(key).present?
-  end
-
-  def cache!(event)
-    hash = JSON.parse(event.to_json, symbolize_names: true)
-    data = hash.delete_if {
-      |k, v| k == :fetcher || k == :graph
-    }
-    Rails.cache.write(cache_key(event), data, expires_in: 48.hours)
   end
 
   def cache(event)

@@ -7,6 +7,7 @@ gem 'koala', '~> 2.0'
 gem 'active_model_serializers'
 gem 'rails-api'
 gem 'redis-rails'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
