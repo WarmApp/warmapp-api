@@ -1,4 +1,8 @@
 class Api::V1::TracksController < Api::V1::BaseController
+  def index
+    render json: Track.where(playlist_id: params[:playlist_id]), status: 200
+  end
+
   def show
     render json: Track.find(params[:id]), status: 200
   end

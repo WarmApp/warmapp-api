@@ -1,6 +1,20 @@
 require 'spec_helper'
 
 describe Api::V1::TracksController do
+  describe 'GET #index' do
+    before :each do
+      playlist = FactoryGirl.create(:playlist)
+      @tracks = FactoryGirl.create_list(:track, 5, playlist_id: playlist.id)
+      get :index, { playlist_id: playlist.id }, format: :json
+    end
+
+    it { should respond_with 200 }
+
+    it 'shoud responde with 5 tracks' do
+      expect(json_responsep[:tracks].length).to eql 5
+    end
+  end
+
   describe 'GET #show' do
     context 'when is successfully found' do
       before :each do
