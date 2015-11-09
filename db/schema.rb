@@ -11,6 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20151108233744) do
 
+  create_table "playlists", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.integer  "fb_event_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.integer  "playlist_id",  limit: 4
+    t.string   "caption",      limit: 255
+    t.string   "link",         limit: 255
+    t.string   "source",       limit: 255
+    t.string   "name",         limit: 255
+    t.text     "fb_message",   limit: 65535
+    t.integer  "fb_user_id",   limit: 4
+    t.string   "fb_user_name", limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "tracks", ["playlist_id"], name: "index_tracks_on_playlist_id", using: :btree
+
+  add_foreign_key "tracks", "playlists"
 end
