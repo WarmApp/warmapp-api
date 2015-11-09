@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :events, :only => [:show]
       resources :tracks, :only => [:show, :create, :update]
       resources :playlists, :only => [:show, :create, :update] do
-        resources :tracks, :only => [:index, :show, :create, :update]
+        resources :tracks, :only => [:index]
       end
     end
   end
