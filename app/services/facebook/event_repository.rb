@@ -1,12 +1,7 @@
 class Facebook::EventRepository
   def load!(event)
     if cached?(event)
-      # TODO(wcalderie) refactor the event poro to act more like a model
-      data = cache(event)
-      data.delete(:fetcher)
-      data.delete(:graph)
-      data.delete(:id)
-      data
+      Facebook::Event.new(cache(event))
     else
       event.load!
       cache!(event)
@@ -26,10 +21,14 @@ private
   end
 
   def cache!(event)
-    Rails.cache.write(cache_key(event), event.to_json)
+    hash = JSON.parse(event.to_json, symbolize_names: true)
+    data = hash.delete_if {
+      |k, v| k == :fetcher || k == :graph
+    }
+    Rails.cache.write(cache_key(event), data, expires_in: 48.hours)
   end
 
   def cache(event)
-    JSON.parse(Rails.cache.read(cache_key(event)), symbolize_names: true)
+    Rails.cache.read(cache_key(event))
   end
 end

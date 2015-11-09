@@ -1,29 +1,30 @@
 class Facebook::Event
+  include ActiveModel::Model
   include ActiveModel::SerializerSupport
 
-  attr_accessor :id, :feeds, :metadata
+  attr_accessor :id, :feeds, :metadata, :fetcher
 
-  def initialize(id, fetcher = nil)
-    @id = id
-    @feeds = []
-    @metadata = {}
-    @fetcher = fetcher
+  def initialize(args = nil)
+    super
+    fetcher = nil
   end
 
-  def feed
-    parser = Facebook::FeedsParser.new(@fetcher.feed(@id))
-    @feeds = parser.parse
-    @feeds
-  end
-
-  def metadata
-    @metadata = @fetcher.metadata
+  def persisted
+    false
   end
 
   def load!
-    @fetcher = Facebook::Fetcher.new() if @fetcher.nil?
-    self.feed
-    self.metadata
+    self.fetcher = Facebook::Fetcher.new() if self.fetcher.nil?
+    parser = Facebook::FeedsParser.new(self.fetcher.feed(id))
+    self.feeds = parse
+    self.metadata = fetcher.metadata
     self
+  end
+
+private
+
+  def parse
+    parser = Facebook::FeedsParser.new(self.fetcher.feed(id))
+    parser.parse
   end
 end
