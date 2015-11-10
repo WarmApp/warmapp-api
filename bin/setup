@@ -15,7 +15,7 @@ Dir.chdir APP_ROOT do
   end
 
   unless File.exist?("config/facebook.yml")
-    system "cp config/faceboook.yml.dist config/facebook.yml"
+    system "cp config/facebook.yml.dist config/facebook.yml"
   end
 
   puts "\n== Preparing database =="

@@ -209,6 +209,3 @@ DEPENDENCIES
   shoulda-matchers (~> 3.0)
   sidekiq
   sinatra
-
-BUNDLED WITH
-   1.10.6

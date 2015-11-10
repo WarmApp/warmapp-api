@@ -1,4 +1,4 @@
 class Facebook::Filters::BaseFilter
-  def filter(feed)
+  def filter(_feed)
   end
 end

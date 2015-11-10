@@ -1,4 +1,4 @@
-﻿class ModelValidationError < ApplicationError
+class ModelValidationError < ApplicationError
   def initialize(errors)
     @class = "ModelValidationError"
     @status = 400
