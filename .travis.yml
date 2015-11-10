@@ -11,3 +11,6 @@ script:
 before_script:
   - cp config/database.yml.sample config/database.yml
   - cp config/facebook.yml.dist config/facebook.yml
+
+notifications:
+  email: false
