@@ -18,3 +18,7 @@ group :development, :test do
   gem 'byebug'
   gem 'shoulda-matchers', '~> 3.0'
 end
+
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+end
