@@ -1,0 +1,20 @@
+language: ruby
+
+rvm:
+  - 2.2.0
+
+script:
+  - RAILS_ENV=test rake db:create
+  - RAILS_ENV=test rake db:migrate
+  - RAILS_ENV=test bundle exec rspec
+
+before_script:
+  - cp config/database.yml.sample config/database.yml
+  - cp config/facebook.yml.dist config/facebook.yml
+
+notifications:
+  email: false
+
+addons:
+  code_climate:
+    repo_token: 6e6f924b158cd096367fd6dbba64015d27650b5953c945e742ab86f25e7e1727

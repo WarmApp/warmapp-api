@@ -1,4 +1,4 @@
-﻿class UnauthenticatedError < ApplicationError
+class UnauthenticatedError < ApplicationError
   def initialize
     @status = 401
     @class = "UnauthenticatedError"
