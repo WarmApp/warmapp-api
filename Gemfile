@@ -6,6 +6,10 @@ gem 'responders', '~> 2.0'
 gem 'koala', '~> 2.0'
 gem 'active_model_serializers'
 gem 'rails-api'
+gem 'redis-rails'
+gem 'sidekiq'
+gem 'sinatra'
+gem 'foreman'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
@@ -14,4 +18,3 @@ group :development, :test do
   gem 'byebug'
   gem 'shoulda-matchers', '~> 3.0'
 end
-
