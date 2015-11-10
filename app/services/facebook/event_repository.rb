@@ -1,7 +1,7 @@
 class Facebook::EventRepository
   def load!(event)
     if cached?(event)
-      FetchFacebookEventJob.perform_later(event.id)
+      FetchFacebookEventWorker.perform_async(event.id)
       Facebook::Event.new(cache(event))
     else
       event.load!
