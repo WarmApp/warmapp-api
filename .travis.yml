@@ -1,0 +1,13 @@
+language: ruby
+
+rvm:
+  - 2.2.0
+
+script:
+  - RAILS_ENV=test rake db:create
+  - RAILS_ENV=test rake db:migrate
+  - rspec
+
+before_script:
+  - cp config/database.yml.sample config/database.yml
+  - cp config/facebook.yml.dist config/facebook.yml
