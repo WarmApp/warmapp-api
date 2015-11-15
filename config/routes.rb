@@ -1,9 +1,7 @@
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
   root to: "errors#routing"
 
-  namespace :api, defaults: { format: :json } do
+  namespace :api, path: '', defaults: { format: :json } do
     namespace :v1 do
       resources :events, only: [:show]
       resources :tracks, only: [:show, :create, :update]

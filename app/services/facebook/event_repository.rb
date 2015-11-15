@@ -13,7 +13,7 @@ class Facebook::EventRepository
   def cache!(event)
     hash = JSON.parse(event.to_json, symbolize_names: true)
     data = hash.delete_if {
-      |k, v| k == :fetcher || k == :graph
+      |k, _| k == :fetcher || k == :graph
     }
     Rails.cache.write(cache_key(event), data, expires_in: 48.hours)
   end
