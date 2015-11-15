@@ -1,0 +1,16 @@
+﻿auth:
+  username: root
+  password: root
+  host: 127.0.0.1
+  port: 22
+commands:
+  - cd docker/warmapp
+  - cd docker/nginx/frontend
+  - git fetch --all
+  - git reset --hard origin/master
+  - cd ../../../
+  - git fetch --all
+  - git reset --hard origin/master
+  - docker-compose -f production.yml build
+  - docker-compose -f production.yml run web rake db:migrate
+  - docker-compose -f production.yml up -d
