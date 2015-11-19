@@ -80,6 +80,7 @@ GEM
     hitimes (1.2.3)
     i18n (0.7.0)
     json (1.8.3)
+    kgio (2.10.0)
     koala (2.2.0)
       addressable
       faraday
@@ -128,6 +129,7 @@ GEM
       activesupport (= 4.2.4)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    raindrops (0.15.0)
     rake (10.4.2)
     redis (3.2.1)
     redis-actionpack (4.0.1)
@@ -197,6 +199,10 @@ GEM
       hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    unicorn (5.0.1)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
 
 PLATFORMS
   ruby
@@ -218,3 +224,4 @@ DEPENDENCIES
   shoulda-matchers (~> 3.0)
   sidekiq
   sinatra
+  unicorn
