@@ -14,6 +14,8 @@ services:
       - RAILS_ENV=development
       - WARMAPP_DATABASE_HOST=postgres
       - WARMAPP_REDIS_HOST=redis
+      - WARMAPP_FACEBOOK_APP_ID=$WARMAPP_FACEBOOK_APP_ID
+      - WARMAPP_FACEBOOK_APP_SECRET=$WARMAPP_FACEBOOK_APP_SECRET
     ports:
       - "3000:3000"
     command: bin/rails server --binding=0.0.0.0 --port=3000
