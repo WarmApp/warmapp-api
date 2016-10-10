@@ -1,21 +1,41 @@
-rspec:
-  build: .
-  volumes:
-    - .:/app
-  environment:
-    RAILS_ENV: test
-  links:
-    - postgres:postgres
-  command: bundle exec rspec
+version: "2"
 
-postgres:
-  image: postgres:latest
-  volumes_from:
-    - data
-  ports:
-    - "5432:5432"
+services:
+  web:
+    build:
+      dockerfile: docker/ruby/Dockerfile
+      context: .
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/warmapp-api
+    environment:
+      - RAILS_ENV=development
+      - WARMAPP_DATABASE_HOST=postgres
+      - WARMAPP_REDIS_HOST=redis
+    ports:
+      - "3000:3000"
+    command: bin/rails server --binding=0.0.0.0 --port=3000
 
-data:
-  image: postgres:latest
-  volumes:
-    - /var/lib/postgresql
+  test:
+    build:
+      dockerfile: docker/ruby/Dockerfile
+      context: .
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/warmapp-api
+    environment:
+      - RAILS_ENV=test
+      - WARMAPP_DATABASE_HOST=postgres
+      - WARMAPP_REDIS_HOST=redis
+    command: bin/bundle exec rspec
+
+  postgres:
+    image: postgres
+
+  redis:
+    image: redis
+

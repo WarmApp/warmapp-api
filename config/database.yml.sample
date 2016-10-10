@@ -3,6 +3,7 @@ default: &default
   username: postgres
   encoding: unicode
   pool: 5
+  host: <%= defined?(ENV['WARMAPP_DATABASE_HOST']) ? ENV['WARMAPP_DATABASE_HOST'] : localhost %>
 
 development:
   <<: *default
